@@ -150,8 +150,21 @@ h1 {
 }
 
 .genre-chip .chip-icon {
-  font-size: 0.9em;
-  line-height: 1;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-color: var(--gold);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  flex-shrink: 0;
+}
+
+.genre-chip.active .chip-icon {
+  background-color: var(--dkgreen);
 }
 
 .genre-chip.active {
@@ -307,7 +320,17 @@ h1 {
 }
 
 .record-genre-tag .chip-icon {
-  font-size: 0.85em;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-color: var(--gold);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  flex-shrink: 0;
 }
 
 .record-vibe {
@@ -571,7 +594,7 @@ h1 {
   gap: 8px;
   width: 100%;
   padding: 14px;
-  margin-top: 24px;
+  margin: 24px 0;
   border-radius: 12px;
   border: 2px solid var(--gold);
   background: transparent;

@@ -52,14 +52,26 @@ const SECTION_MAP = {
 const GENRE_ORDER = ['12" (Pop)','Electronic','Funk/Soul','Indie','International','Jazz','Rock','OST'];
 
 const GENRE_ICONS = {
-  '12" (Pop)': '\uD83D\uDCBF', 'Electronic': '\uD83C\uDF9B\uFE0F',
-  'Funk/Soul': '\uD83E\uDEA9', 'Indie': '\u2615\uFE0F', 'International': '\uD83C\uDF0E',
-  'Jazz': '\uD83C\uDFB7', 'Rock': '\uD83C\uDFB8', 'OST': '\uD83C\uDFAE'
+  '12" (Pop)': 'icons/Pop.svg',
+  'Electronic': 'icons/Electronic.svg',
+  'Funk/Soul': 'icons/Funk.svg',
+  'Indie': 'icons/Indie.svg',
+  'International': 'icons/Intl.svg',
+  'Jazz': 'icons/Jazz.svg',
+  'Rock': 'icons/Rock.svg',
+  'OST': 'icons/OST.svg'
 };
 
 const PL_COLORS = ['#5B6B4A','#4A5E42','#6B7B5A','#3D5038','#7A8A6A','#4E6346','#5F7050','#3A4D35','#6D7E5C','#546A4C'];
 
 function hashStr(s) { let h=0; for(let i=0;i<s.length;i++) h=((h<<5)-h+s.charCodeAt(i))|0; return Math.abs(h); }
+
+function iconHTML(genre, size) {
+  const src = GENRE_ICONS[genre];
+  if (!src) return '';
+  const cls = size === 'sm' ? 'chip-icon chip-icon-sm' : 'chip-icon';
+  return '<span class="'+cls+'" style="-webkit-mask-image:url('+src+');mask-image:url('+src+')"></span>';
+}
 
 // ======================================================
 //  CSV → RECORDS
@@ -163,9 +175,8 @@ function renderChips() {
   const present = GENRE_ORDER.filter(g => RECORDS.some(r => r.genre === g));
   c.innerHTML = present.map((g, idx) => {
     const a = activeGenre === g;
-    const icon = GENRE_ICONS[g] || '';
     return '<button class="genre-chip'+(a?' active':'')+'" data-idx="'+idx+'">'
-      + '<span class="chip-icon">'+icon+'</span>' + g + '</button>';
+      + iconHTML(g) + g + '</button>';
   }).join('');
 }
 
@@ -198,7 +209,6 @@ function renderRecords(records) {
     const artHTML = r.art
       ? '<img src="'+r.art+'" alt="'+r.title+'" loading="lazy">'
       : '<div class="art-placeholder" style="background:'+bg+'">'+initial+'</div>';
-    const icon = GENRE_ICONS[r.genre] || '';
     const vibeHTML = r.vibe
       ? '<div class="record-vibe"><strong>If you like:</strong> '+r.vibe+'</div>' : '';
     return '<div class="record-card" data-idx="'+globalIdx+'" style="animation-delay:'+i*0.03+'s">'
@@ -206,7 +216,7 @@ function renderRecords(records) {
       + '<div class="record-info">'
       + '<span class="record-title">'+r.title+'</span>'
       + '<span class="record-artist">'+r.artist+'</span>'
-      + '<span class="record-genre-tag"><span class="chip-icon">'+icon+'</span>'+r.genre+'</span>'
+      + '<span class="record-genre-tag">'+iconHTML(r.genre, 'sm')+r.genre+'</span>'
       + '</div></div>' + vibeHTML + '</div>';
   }).join('');
 }
@@ -223,7 +233,6 @@ document.getElementById('recordList').addEventListener('click', (e) => {
 function openModal(r) {
   const sheet = document.getElementById('modalSheet');
   const d = r.detail || {};
-  const icon = GENRE_ICONS[r.genre] || '';
   const initial = r.title.replace(/^(The |A )/i,'').charAt(0).toUpperCase();
   const bg = PL_COLORS[hashStr(r.title) % PL_COLORS.length];
 
@@ -241,7 +250,7 @@ function openModal(r) {
 
   const sectionHTML = '<div class="modal-section-row">'
     + '<span class="modal-section-label">Section</span>'
-    + '<span class="record-genre-tag"><span class="chip-icon">'+icon+'</span>'+r.genre+'</span></div>';
+    + '<span class="record-genre-tag">'+iconHTML(r.genre, 'sm')+r.genre+'</span></div>';
 
   let genresHTML = '';
   if (d.genres && d.genres.length) {
@@ -263,16 +272,13 @@ function openModal(r) {
     tracksHTML += '</div>';
   }
 
-  let vibeHTML = '';
-  if (r.vibe) vibeHTML = '<div class="record-vibe" style="padding-top:20px"><strong>If you like:</strong> '+r.vibe+'</div>';
-
   const requestHTML = '<button class="modal-request-btn" id="modalRequest">\uD83D\uDCE9 Request</button>';
 
   sheet.innerHTML = '<div class="modal-header"><div class="modal-header-text">'
     + '<div class="modal-title">'+r.title+'</div>'
     + '<div class="modal-artist">'+r.artist+'</div></div>'
     + '<button class="modal-close" id="modalClose">&times;</button></div>'
-    + artHTML + metaHTML + sectionHTML + genresHTML + tracksHTML + vibeHTML + requestHTML;
+    + artHTML + metaHTML + requestHTML + sectionHTML + genresHTML + tracksHTML;
 
   document.getElementById('modalOverlay').classList.add('open');
   document.body.classList.add('modal-open');
