@@ -94,7 +94,7 @@ The topic name acts as a password — keep it unique and don't share it publicly
 The site uses **New Spirit** (serif, via Adobe Fonts) and **Courier New** (monospace, system font). The Adobe Fonts embed is loaded from Typekit:
 
 ```html
-<link rel="stylesheet" href="https://use.typekit.net/hhk3ysu.css">
+<link rel="stylesheet" href="https://example.com">
 ```
 
 To use your own Adobe Fonts project, replace the Typekit URL and add your GitHub Pages domain to the project's allowed domains at [fonts.adobe.com](https://fonts.adobe.com).
