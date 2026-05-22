@@ -266,7 +266,7 @@ function openModal(r) {
       tracks.forEach((t, i) => {
         tracksHTML += '<div class="modal-track"><span class="modal-track-num">'+(i+1)+'.</span>'
           + '<span class="modal-track-name">'+t.name+'</span>'
-          + (t.fav ? '<span class="modal-track-fav">\u2606</span>' : '') + '</div>';
+          + (t.fav ? '<span class="modal-track-fav">\u2605</span>' : '') + '</div>';
       });
     }
     tracksHTML += '</div>';
