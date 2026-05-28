@@ -551,26 +551,30 @@ h1 {
   font-size: 1.15rem;
   color: var(--gold);
   margin: 16px 0 8px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(229, 192, 131, 0.25);
 }
 
 .modal-side-label:first-child {
   margin-top: 0;
+  padding-top: 0;
+  border-top: none;
 }
 
 .modal-track {
   display: flex;
-  align-items: center;
-  padding: 6px 0;
+  align-items: flex-start;
+  padding: 10px 0;
   font-family: 'Courier New', Courier, monospace;
   font-weight: 700;
   font-size: 1rem;
-  height: 1.75rem;
+  line-height: 1.4;
   color: var(--white);
 }
 
 .modal-track-num {
   color: var(--white);
-  width: 28px;
+  width: 32px;
   flex-shrink: 0;
 }
 
@@ -579,10 +583,11 @@ h1 {
 }
 
 .modal-track-fav {
-  color: var(--white);
+  color: var(--gold);
   flex-shrink: 0;
-  margin-left: 8px;
-  font-size: 1.5rem;
+  margin-left: 12px;
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
 /* ----- Modal Request Button ----- */
