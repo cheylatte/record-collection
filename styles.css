@@ -566,7 +566,7 @@ h1 {
   align-items: flex-start;
   padding: 10px 0;
   font-family: 'Courier New', Courier, monospace;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1rem;
   line-height: 1.4;
   color: var(--white);
@@ -574,6 +574,7 @@ h1 {
 
 .modal-track-num {
   color: var(--white);
+  font-weight: 600;
   width: 32px;
   flex-shrink: 0;
 }
@@ -586,8 +587,8 @@ h1 {
   color: var(--gold);
   flex-shrink: 0;
   margin-left: 12px;
-  font-size: 1rem;
-  line-height: 1.4;
+  font-size: 2rem;
+  line-height: .75;
 }
 
 /* ----- Modal Request Button ----- */

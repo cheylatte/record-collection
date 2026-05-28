@@ -137,6 +137,18 @@ async function loadRecords() {
     const text = await resp.text();
     const result = Papa.parse(text, { header: true, skipEmptyLines: true });
     RECORDS = csvToRecords(result.data);
+
+    // Sort: genre order → artist name (alpha) → release year (ascending)
+    RECORDS.sort((a, b) => {
+      const ga = GENRE_ORDER.indexOf(a.genre), gb = GENRE_ORDER.indexOf(b.genre);
+      if (ga !== gb) return (ga === -1 ? 99 : ga) - (gb === -1 ? 99 : gb);
+      const artist = a.artist.replace(/^The /i,'').localeCompare(b.artist.replace(/^The /i,''));
+      if (artist !== 0) return artist;
+      const ya = parseInt((a.detail && a.detail.released) || '9999');
+      const yb = parseInt((b.detail && b.detail.released) || '9999');
+      return ya - yb;
+    });
+
     renderChips();
     applyFilters();
   } catch (e) {
