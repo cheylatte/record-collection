@@ -65,7 +65,7 @@ h1 {
   padding: 16px 44px 16px 52px;
   font-family: 'Courier New', Courier, monospace;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   border: 1px solid var(--gold);
   border-radius: 32px;
   background: var(--medgreen);
@@ -376,6 +376,7 @@ h1 {
   color: var(--white);
   padding: 10px 0 0;
   line-height: 1.4;
+  display: none;
 }
 
 .record-vibe strong {
