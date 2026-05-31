@@ -225,7 +225,20 @@ function renderRecords(records) {
       : '<div class="art-placeholder" style="background:'+bg+'">'+initial+'</div>';
     const vibeHTML = r.vibe
       ? '<div class="record-vibe"><strong>If you like:</strong> '+r.vibe+'</div>' : '';
-    return '<div class="record-card" data-idx="'+globalIdx+'" style="animation-delay:'+i*0.03+'s">'
+
+    // Insert sticky genre header when genre changes (full list only)
+    let headerHTML = '';
+    if (!activeGenre && !searchQuery) {
+      const prevGenre = i > 0 ? records[i-1].genre : null;
+      if (r.genre !== prevGenre) {
+        const iconSrc = GENRE_ICONS[r.genre] || '';
+        headerHTML = '<div class="genre-section-header">'
+          + (iconSrc ? '<span class="genre-section-icon" style="-webkit-mask-image:url('+iconSrc+');mask-image:url('+iconSrc+')"></span>' : '')
+          + r.genre + '</div>';
+      }
+    }
+
+    return headerHTML + '<div class="record-card" data-idx="'+globalIdx+'" style="animation-delay:'+i*0.03+'s">'
       + '<div class="card-row"><div class="art-wrap">'+artHTML+'</div>'
       + '<div class="record-info">'
       + '<span class="record-title">'+r.title+'</span>'

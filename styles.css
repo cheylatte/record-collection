@@ -220,6 +220,42 @@ h1 {
   gap: 12px;
 }
 
+/* ----- Genre Section Headers ----- */
+
+.genre-section-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 4px;
+  margin-top: 8px;
+  font-family: 'new-spirit', serif;
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: var(--gold);
+  background: var(--dkgreen);
+}
+
+.genre-section-header:first-child {
+  margin-top: 0;
+}
+
+.genre-section-icon {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background-color: var(--gold);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  flex-shrink: 0;
+}
+
 .record-card {
   display: flex;
   flex-direction: column;
