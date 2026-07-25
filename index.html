@@ -140,11 +140,17 @@ async function loadRecords() {
     RECORDS = csvToRecords(result.data);
 
     // Sort: genre order → artist name (alpha) → release year (ascending)
+    // Exception: OST sorts by album title instead of artist
     RECORDS.sort((a, b) => {
       const ga = GENRE_ORDER.indexOf(a.genre), gb = GENRE_ORDER.indexOf(b.genre);
       if (ga !== gb) return (ga === -1 ? 99 : ga) - (gb === -1 ? 99 : gb);
-      const artist = a.artist.replace(/^The /i,'').localeCompare(b.artist.replace(/^The /i,''));
-      if (artist !== 0) return artist;
+      let primary;
+      if (a.genre === 'OST') {
+        primary = a.title.replace(/^The /i,'').localeCompare(b.title.replace(/^The /i,''));
+      } else {
+        primary = a.artist.replace(/^The /i,'').localeCompare(b.artist.replace(/^The /i,''));
+      }
+      if (primary !== 0) return primary;
       const ya = parseInt((a.detail && a.detail.released) || '9999');
       const yb = parseInt((b.detail && b.detail.released) || '9999');
       return ya - yb;
@@ -331,7 +337,7 @@ function applyFilters() {
   const q = searchQuery.toLowerCase();
   let f = RECORDS;
   if (activeGenre) f = f.filter(r => r.genre === activeGenre);
-  if (q) f = f.filter(r => r.title.toLowerCase().includes(q) || r.artist.toLowerCase().includes(q) || (r.vibe && r.vibe.toLowerCase().includes(q)));
+  if (q) f = f.filter(r => r.title.toLowerCase().includes(q) || r.artist.toLowerCase().includes(q) || (r.vibe && r.vibe.toLowerCase().includes(q)) || (r.detail && r.detail.genres && r.detail.genres.some(g => g.toLowerCase().includes(q))));
   renderRecords(f);
 }
 
